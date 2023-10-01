@@ -1,20 +1,39 @@
 import heroImg from "../images/hero section.svg";
-import Calendar from "react-calendar";
 import { useState } from "react";
 import { useEffect } from "react";
 
 const HeroSection = () => {
   const [selectedDate, setSelectedDate] = useState("");
+  const [rooms, setRooms] = useState(1);
+  const [guests, setGuests] = useState(2);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleToggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
+  const handleDecrease = (type) => {
+    if (type === "rooms" && rooms > 1) {
+      setRooms(rooms - 1);
+    } else if (type === "guests" && guests > 1) {
+      setGuests(guests - 1);
+    }
+  };
+
+  const handleIncrease = (type) => {
+    if (type === "rooms") {
+      setRooms(rooms + 1);
+    } else if (type === "guests") {
+      setGuests(guests + 1);
+    }
+  };
 
   useEffect(() => {
-    // Calculate tomorrow's date
     const tomorrow = new Date();
     tomorrow.setDate(new Date().getDate() + 1);
 
-    // Format the date as YYYY-MM-DD (required by input type="date")
     const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
 
-    // Set the default date to tomorrow
     setSelectedDate(tomorrowFormatted);
   }, []);
 
@@ -51,7 +70,7 @@ const HeroSection = () => {
               placeholder="Select a Date"
               defaultValue={selectedDate}
               onChange={handleDateChange}
-              className="appearance-none border border-slate-300 px- mt-1 text-slate-400 rounded w-[240px] py-2 leading-tight focus:outline-none focus:border-blue-500"
+              className="appearance-none border border-slate-300 px-2 mt-1 text-slate-400 rounded w-[240px] py-2 leading-tight focus:outline-none focus:border-slate-300"
             />
           </div>
           <div className="ml-8">
@@ -61,18 +80,58 @@ const HeroSection = () => {
               placeholder="Select a Date"
               defaultValue={selectedDate}
               onChange={handleDateChange}
-              className=" appearance-none border border-slate-300 px-2 mt-1 text-slate-400 rounded w-[240px] py-2 leading-tight focus:outline-none focus:border-blue-500"
+              className="appearance-none border border-slate-300 px-2 mt-1 text-slate-400 rounded w-[240px] py-2 leading-tight focus:outline-none focus:border-slate-300"
             />
           </div>
           <div className="ml-8">
             <p>Room & Guests</p>
-            <input
-              type="date"
-              placeholder="Select a Date"
-              defaultValue={selectedDate}
-              onChange={handleDateChange}
-              className=" appearance-none border border-slate-300 px-2 mt-1 text-slate-400 rounded w-[240px] py-2 leading-tight focus:outline-none focus:border-blue-500"
-            />
+            <button
+              className="appearance-none border border-slate-300 px-2 mt-1 text-slate-400 rounded w-[240px] py-2 text-left leading-tight focus:outline-none focus:border-slate-300"
+              onClick={handleToggleDropdown}
+            >
+              {rooms} Rooms , {guests} Guests
+            </button>
+            {isDropdownVisible && (
+              <div className="dropdown shadow-lg mt-2 px-4  pb-4 rounded-lg shadow-slate-300/50">
+                <div className="flex  items-center justify-between">
+                  <p>Rooms: </p>
+                  <div className="flex items-center">
+                    <button
+                      className="btn border-2 border-[#E76B39] rounded-full w-[20px] h-[20px] flex justify-center items-center text-[#E76B39] font-semibold"
+                      onClick={() => handleDecrease("rooms")}
+                    >
+                      -
+                    </button>
+                    <div className="px-4">{rooms}</div>
+                    <button
+                      className="btn border-2 border-[#E76B39] rounded-full w-[20px] h-[20px] flex justify-center items-center text-[#E76B39] font-semibold"
+                      onClick={() => handleIncrease("rooms")}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex mt-2  items-center justify-between ">
+                  <p>Guests: </p>
+                  <div className="flex items-center">
+                    <button
+                      className="btn border-2 border-[#E76B39] rounded-full w-[20px] h-[20px] flex justify-center items-center text-[#E76B39] font-semibold"
+                      onClick={() => handleDecrease("guests")}
+                    >
+                      -
+                    </button>
+                    <div className="px-4">{guests}</div>
+                    <button
+                      className="btn border-2 border-[#E76B39] rounded-full w-[20px] h-[20px] flex justify-center items-center text-[#E76B39] font-semibold"
+                      onClick={() => handleIncrease("guests")}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <button className="bg-[#C14817] text-white  rounded-sm px-7 mt-7 py-2">
             Book Now
