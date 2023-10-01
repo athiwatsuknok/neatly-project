@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutSection = () => {
   return (
-    <section className="h-[577px] w-4/5 mx-auto mt-[8rem]">
+    <section className="h-[500px] w-4/5 mx-auto mt-[8rem]">
       <div className="">
         <h1
           style={{ fontFamily: "Playfair Display, serif" }}
@@ -11,7 +11,7 @@ const AboutSection = () => {
           Neatly Hotel
         </h1>
         <div className="flex  justify-end">
-          <p className=" text-[#646D89] w-4/5 tracking-wide mt-[4rem] font-light leading-7">
+          <p className=" text-[#646D89] w-4/5 tracking-wider mt-[3rem] font-regular leading-7">
             Set in Bangkok, Thailand. Neatly Hotel offers 5-star accommodation
             with an outdoor pool, kids' club, sports facilities and a fitness
             centre. There is also a spa, an indoor pool and saunas.
